@@ -1,8 +1,22 @@
 
 import java.awt.Dimension;
+import java.io.FileWriter;
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-
+import org.json.JSONObject;
+import com.google.gson.Gson;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -13,11 +27,13 @@ import javax.swing.JTabbedPane;
  * @author Mateusz
  */
 public class NewJPanel extends javax.swing.JPanel {
-    String getName, getSurname, city, address, login, password, rePassword, sex, box, phoneNumber, pesel, postCode;
-    
+    String name, surname, city, address, login, password, rePassword, sex, email, phoneNumber, pesel, postCode;
+    Account person;
      JFrame F = new JFrame("Panel");
-     
-     
+     Border empty = BorderFactory.createLineBorder(Color.RED, 1);
+     Border correct = BorderFactory.createLineBorder(Color.gray, 1);
+     final static String outputFilePath
+        = "D:\\Własne\\Repozytorium_CV\\bankapp\\src\\main\\java\\accounts.json";
      
     /**
      * Creates new form NewJPanel
@@ -55,7 +71,7 @@ public class NewJPanel extends javax.swing.JPanel {
         PostCode_Label = new javax.swing.JLabel();
         Phone_Number = new javax.swing.JTextField();
         PhoneNumber_Label = new javax.swing.JLabel();
-        PostCode_Label1 = new javax.swing.JLabel();
+        Sex_Text = new javax.swing.JLabel();
         Sex_box = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -135,11 +151,20 @@ public class NewJPanel extends javax.swing.JPanel {
         Register.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Register.setMinimumSize(new java.awt.Dimension(500, 200));
 
+        Last_Name.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        First_Name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         First_Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 First_NameActionPerformed(evt);
             }
         });
+
+        City.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
+        Address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
+        PostCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         FirstName_Label.setText("First Name");
 
@@ -151,10 +176,12 @@ public class NewJPanel extends javax.swing.JPanel {
 
         PostCode_Label.setText("Post Code");
 
+        Phone_Number.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
         PhoneNumber_Label.setText("Phone number");
 
-        PostCode_Label1.setText("Sex");
-        PostCode_Label1.setToolTipText("");
+        Sex_Text.setText("Sex");
+        Sex_Text.setToolTipText("");
 
         Sex_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other", "Male", "Female", " " }));
 
@@ -167,13 +194,23 @@ public class NewJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Pesel");
 
+        Pesel_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
         jLabel2.setText("Login");
+
+        Login_field.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         jLabel3.setText("E-mail");
 
+        Email_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
         jLabel4.setText("Password");
 
+        Password_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
         jLabel5.setText("Repeat password");
+
+        RePassword_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         javax.swing.GroupLayout RegisterLayout = new javax.swing.GroupLayout(Register);
         Register.setLayout(RegisterLayout);
@@ -188,7 +225,7 @@ public class NewJPanel extends javax.swing.JPanel {
                     .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PostCode_Label)
                     .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PostCode_Label1)
+                    .addComponent(Sex_Text)
                     .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,11 +255,16 @@ public class NewJPanel extends javax.swing.JPanel {
             RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegisterLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
+                        .addComponent(City_Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(RegisterLayout.createSequentialGroup()
                         .addComponent(FirstName_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(First_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(RegisterLayout.createSequentialGroup()
+                        .addComponent(First_Name)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LastName_Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,8 +274,6 @@ public class NewJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(City_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Last_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Address_Label)
@@ -245,7 +285,7 @@ public class NewJPanel extends javax.swing.JPanel {
                         .addComponent(Phone_Number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PostCode_Label1)
+                    .addComponent(Sex_Text)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -273,7 +313,7 @@ public class NewJPanel extends javax.swing.JPanel {
                         .addComponent(RePassword_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Register", null, Register, "");
@@ -284,7 +324,7 @@ public class NewJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 100, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,31 +346,199 @@ public class NewJPanel extends javax.swing.JPanel {
         //String getName, getSurname, city, address, login, password, rePassword, sex;
         //int phoneNumber, pesel, postCode;
         
-        getName = First_Name.getText();
-        getSurname = Last_Name.getText();
+        name = First_Name.getText();
+        surname = Last_Name.getText();
         city = City.getText();
         address = Address.getText();
         login = Login_field.getText();
         password = Password_label.getText();
         rePassword = RePassword_label.getText();
+        email = Email_label.getText();
         sex = String.valueOf(Sex_box.getSelectedItem());
         
         phoneNumber = Phone_Number.getText();
         pesel = Pesel_label.getText();
         postCode = PostCode.getText();
         
-        System.out.println("Name: " + getName + " " + getSurname);
-        System.out.println("Address: " + address + ", " + city + ", " + postCode);
-        System.out.println("Sex: " + sex);
-        System.out.println("login: " + login + " | password: " + password + " | rePassword: " + rePassword);
-        System.out.println("Pesel: " + pesel + " | PhoneNumber: " + phoneNumber );
+        person = new Account(name, surname, city, address, login, password, rePassword, sex, email,
+                phoneNumber, pesel, postCode);
+        
+        
+        ArrayList<JTextField> accountData = new ArrayList<JTextField>();
+            accountData.add(First_Name);
+            accountData.add(Last_Name);
+            accountData.add(City);
+            accountData.add(Address);
+            accountData.add(Login_field);
+            accountData.add(Password_label);
+            accountData.add(RePassword_label);
+            accountData.add(Email_label);
+            accountData.add(Phone_Number);
+            accountData.add(Pesel_label);
+            accountData.add(PostCode);
+        
+        BufferedWriter bf = null;
+         //Save data to file
+         try{
+            JsonObject obj = new JsonObject();
+            
+            File file = new File(outputFilePath);
+            
+            obj.addProperty("Name", name);
+            obj.addProperty("Surname", surname);
+            obj.addProperty("City", city);
+            obj.addProperty("Address", address);
+            obj.addProperty("Login", login);
+            obj.addProperty("Password", password);
+            obj.addProperty("Sex", sex);
+            obj.addProperty("PhoneNumber", phoneNumber);
+            obj.addProperty("Pesel", pesel);
+            obj.addProperty("PostCode", postCode);
+            
+            //check if data are corrected
+            checkData(First_Name, Last_Name, City, Address, Login_field, Password_label, RePassword_label, Email_label, Phone_Number, Pesel_label, PostCode);
+             
+            //check if Login is longer than 8 
+            if(login.length() < 8){
+                Login_field.setBorder(empty);
+            }else{
+                Login_field.setBorder(correct);
+            }
+            
+            for(JTextField data : accountData){
+                if(data.getBorder() == empty){
+                    return;
+                }
+            }
+            
+            
+            bf = new BufferedWriter(new FileWriter(file, true));
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            //JsonElement account = gson.toJsonTree(person);
+            gson.toJson(obj, bf);
+            System.out.println("Data Saved!");
+            bf.flush();
+            //System.out.println("Data saved!");
+            
+
+            //file.close();
+        }catch(Exception e) {
+            System.out.println("ERROR!!!!!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Login_FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_FieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Login_FieldActionPerformed
 
-    public void dupa(){
+    public void checkData(JTextField name, JTextField surname, JTextField city, JTextField address, JTextField login, 
+            JTextField password, JTextField rePassword, JTextField email, JTextField phoneNumber, JTextField pesel, JTextField postCode){
+            //Border empty = BorderFactory.createLineBorder(Color.RED, 1);
+            //Border correct = BorderFactory.createLineBorder(Color.gray, 1);
+
+            ArrayList<JTextField> accountData = new ArrayList<JTextField>();
+            accountData.add(name);
+            accountData.add(surname);
+            accountData.add(city);
+            accountData.add(address);
+            accountData.add(login);
+            accountData.add(password);
+            accountData.add(rePassword);
+            accountData.add(email);
+            accountData.add(phoneNumber);
+            accountData.add(pesel);
+            accountData.add(postCode);
+            
+            
+            //Check if field is empty
+            for(JTextField data : accountData){
+                if(data.getText().isEmpty()){
+                    data.setBorder(empty);
+                }else{
+                    data.setBorder(correct);
+                }
+            }
+            
+            //check if Pesel contains only numbers and length is equal 11
+            isDigit(pesel, 11);
+            
+            //check if phone number contains only numbers and length is equal 9
+            isDigit(phoneNumber, 9);
+            
+            //check if password is the same like rePassword
+            if(!password.getText().equals(rePassword.getText())){
+                password.setBorder(empty);
+                rePassword.setBorder(empty);
+            }else{
+                password.setBorder(correct);
+                rePassword.setBorder(correct);
+            }
+            
+            //check if password contain one special char, one big letter, one digit and is longer than 8
+            checkPassword(password);
+
+           
+            
+    }
+    
+    public boolean checkPassword(JTextField password){
+        boolean upperCase = false;
+        boolean lowerCase = false;
+        boolean digit = false;
+        boolean specialChar = false;
+        
+        String text = password.getText();
+        
+        if(text.length() < 8){
+            return false;
+        }
+        
+        for(int i = 0; i < text.length(); ++i){
+            if(Character.isDigit(text.charAt(i))){
+                digit = true;
+            }
+            if(Character.isUpperCase(text.charAt(i))){
+                upperCase = true;
+            }
+            if(Character.isLowerCase(text.charAt(i))){
+                lowerCase = true;
+            }
+            if(!Character.isDigit(text.charAt(i))
+               && !Character.isLetter(text.charAt(i))
+               && !Character.isWhitespace(text.charAt(i))){
+               
+                specialChar = true;           
+            }
+        }
+        
+        
+        if(upperCase && digit && specialChar && lowerCase){
+            password.setBorder(correct);
+            return true;
+        }else{
+            password.setBorder(empty);
+            return false;
+        }
+    }
+    
+    
+    // Method allow to check if every char in str is digit and length of str is equal length
+    public void isDigit(JTextField str, int length){
+        if(str.getText().length() !=  length){
+                str.setBorder(empty);
+            }else{
+                str.setBorder(correct);
+            }
+            for(int i = 0; i < str.getText().length(); ++i){
+                char checkChar = str.getText().charAt(i);
+                if(!Character.isDigit(checkChar)){
+                    str.setBorder(empty);
+                }
+            }
+    }
+    
+   
+    public void createGUI(){
         F.setMinimumSize(new Dimension(500,500));
         F.setPreferredSize(new Dimension(500,500));
         F.add(MainPanel);
@@ -338,8 +546,26 @@ public class NewJPanel extends javax.swing.JPanel {
         String getName = Login_Field.getText();
         System.out.println("Text: " + getName);
     }
-   
     
+   
+   
+    public static void main(String[] args) {
+        Gson gson = new Gson();
+        NewJPanel N = new NewJPanel();
+        N.setPreferredSize(new Dimension(500,500));
+        //N.setMinimumSize(new Dimension(650,470));
+        N.createGUI();
+       
+
+        
+        
+        //String getName, getSurname, city, address, login, password, rePassword, sex;
+        //int phoneNumber, pesel, postCode;
+        
+        
+        
+       
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Address;
     private javax.swing.JLabel Address_Label;
@@ -364,9 +590,9 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField Phone_Number;
     private javax.swing.JTextField PostCode;
     private javax.swing.JLabel PostCode_Label;
-    private javax.swing.JLabel PostCode_Label1;
     private javax.swing.JTextField RePassword_label;
     private javax.swing.JPanel Register;
+    private javax.swing.JLabel Sex_Text;
     private javax.swing.JComboBox<String> Sex_box;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -376,3 +602,19 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
+
+/*
+
+        name = First_Name.getText();                    JTextField
+        surname = Last_Name.getText();                  JTextField
+        city = City.getText();                          JTextField
+        address = Address.getText();                    JTextField
+        login = Login_field.getText();                  JTextField
+        password = Password_label.getText();            JTextField
+        rePassword = RePassword_label.getText();        JTextField
+        
+        phoneNumber = Phone_Number.getText();           JTextField
+        pesel = Pesel_label.getText();                  JTextField
+        postCode = PostCode.getText();                  JTextField  
+
+*/

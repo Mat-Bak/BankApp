@@ -1,0 +1,11 @@
+Check function:
+- Post Code should have 5 char only numbers and ignor "-" symbol
+
+
+DONE:
+- Pesel 11 char 0-9        
+- Phone Number 9 char 0-9 
+- check if password and rePassword is the same
+- Password should contain min 8 char, 1 sepcial symbol, 1 Big letter, 1 digit
+- Login should be longer than 8 char
+  

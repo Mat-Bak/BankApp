@@ -1,0 +1,23 @@
+{
+  "Name": "afdsadfasf",
+  "Surname": "fasdfasd",
+  "City": "asdfasd",
+  "Address": "fasdfa",
+  "Login": "sdfasdf",
+  "Password": "!Abcd123",
+  "Sex": "Other",
+  "PhoneNumber": "123456789",
+  "Pesel": "12345678974",
+  "PostCode": "dsfasfa"
+}{
+  "Name": "afdsadfasf",
+  "Surname": "fasdfasd",
+  "City": "asdfasd",
+  "Address": "fasdfa",
+  "Login": "sdfasdf",
+  "Password": "!Abcd123a",
+  "Sex": "Other",
+  "PhoneNumber": "123456789",
+  "Pesel": "12345678974",
+  "PostCode": "dsfasfa"
+}
