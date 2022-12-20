@@ -12,8 +12,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import java.awt.Color;
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -56,8 +65,8 @@ public class NewJPanel extends javax.swing.JPanel {
         Login_Label = new javax.swing.JLabel();
         Login_Field = new javax.swing.JTextField();
         Password_Label = new javax.swing.JLabel();
-        Password_Field = new javax.swing.JTextField();
         Login = new javax.swing.JButton();
+        Password_label = new javax.swing.JPasswordField();
         Register = new javax.swing.JPanel();
         Last_Name = new javax.swing.JTextField();
         First_Name = new javax.swing.JTextField();
@@ -81,9 +90,9 @@ public class NewJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Email_label = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        Password_label = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         RePassword_label = new javax.swing.JTextField();
+        jPasswordField2 = new javax.swing.JPasswordField();
 
         setMinimumSize(new java.awt.Dimension(400, 400));
         setName(""); // NOI18N
@@ -115,19 +124,21 @@ public class NewJPanel extends javax.swing.JPanel {
 
         Login.setText("Login");
 
+        Password_label.setText("jPasswordField1");
+
         javax.swing.GroupLayout LogiInLayout = new javax.swing.GroupLayout(LogiIn);
         LogiIn.setLayout(LogiInLayout);
         LogiInLayout.setHorizontalGroup(
             LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
+                .addContainerGap(161, Short.MAX_VALUE)
                 .addGroup(LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(Login_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Password_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Login_Label))
-                    .addComponent(Password_Label, javax.swing.GroupLayout.Alignment.CENTER))
+                    .addComponent(Password_Label, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(Password_label, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(166, 166, 166))
         );
         LogiInLayout.setVerticalGroup(
@@ -140,10 +151,10 @@ public class NewJPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(Password_Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Password_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(Password_label, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Log In", null, LogiIn, "");
@@ -206,31 +217,35 @@ public class NewJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Password");
 
-        Password_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
-
         jLabel5.setText("Repeat password");
 
         RePassword_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
+        jPasswordField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         javax.swing.GroupLayout RegisterLayout = new javax.swing.GroupLayout(Register);
         Register.setLayout(RegisterLayout);
         RegisterLayout.setHorizontalGroup(
             RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegisterLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(FirstName_Label)
-                    .addComponent(First_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LastName_Label)
-                    .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PostCode_Label)
-                    .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Sex_Text)
-                    .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(Password_label, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegisterLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(FirstName_Label)
+                            .addComponent(First_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LastName_Label)
+                            .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PostCode_Label)
+                            .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sex_Text)
+                            .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
+                    .addGroup(RegisterLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(City_Label)
@@ -303,14 +318,13 @@ public class NewJPanel extends javax.swing.JPanel {
                         .addComponent(Email_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Password_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(RegisterLayout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RePassword_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RePassword_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -341,7 +355,19 @@ public class NewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_First_NameActionPerformed
 
+    //Button register
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try {
+            //TEST
+            System.out.println("Test dzień 999");
+            HashMap<String, String> dataFromFile = checkIfDataExist();
+            System.out.println("dataFromFile: ");
+            System.out.println(dataFromFile);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(NewJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         // TODO add your handling code here:
         //String getName, getSurname, city, address, login, password, rePassword, sex;
         //int phoneNumber, pesel, postCode;
@@ -378,6 +404,9 @@ public class NewJPanel extends javax.swing.JPanel {
             accountData.add(PostCode);
         
         BufferedWriter bf = null;
+        
+        
+        
          //Save data to file
          try{
             JsonObject obj = new JsonObject();
@@ -427,6 +456,23 @@ public class NewJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    public  HashMap<String, String> checkIfDataExist() throws FileNotFoundException{
+        System.out.println("DZIAŁA!");
+        //Gson gson = new Gson();
+            System.out.println("1");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(outputFilePath));
+System.out.println("2");
+            Gson gson = new Gson();
+            System.out.println("3");
+            HashMap<String, String> json = gson.fromJson(bufferedReader, HashMap.class);
+            System.out.println("file data: ");
+            System.out.println(json);
+            return json;
+        
+    }
+    
+    
     private void Login_FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_FieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Login_FieldActionPerformed
@@ -550,11 +596,13 @@ public class NewJPanel extends javax.swing.JPanel {
    
    
     public static void main(String[] args) {
+        
         Gson gson = new Gson();
         NewJPanel N = new NewJPanel();
         N.setPreferredSize(new Dimension(500,500));
         //N.setMinimumSize(new Dimension(650,470));
         N.createGUI();
+        
        
 
         
@@ -582,9 +630,8 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel Login_Label;
     private javax.swing.JTextField Login_field;
     private javax.swing.JTabbedPane MainPanel;
-    private javax.swing.JTextField Password_Field;
     private javax.swing.JLabel Password_Label;
-    private javax.swing.JTextField Password_label;
+    private javax.swing.JPasswordField Password_label;
     private javax.swing.JTextField Pesel_label;
     private javax.swing.JLabel PhoneNumber_Label;
     private javax.swing.JTextField Phone_Number;
@@ -600,6 +647,7 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jPasswordField2;
     // End of variables declaration//GEN-END:variables
 }
 

@@ -1,6 +1,16 @@
 Check function:
-- Post Code should have 5 char only numbers and ignor "-" symbol
+- Post Code should have 5 char only numbers and ignor "-" symbol 
+    
+1. Hide password
+2. check if login, pesel or email exist. If exist then display message with error.
+3. Login - use login and passwort to login (show message if login or not)
 
+
+
+
+
+
+--------------------------------------------------------------------------------
 
 DONE:
 - Pesel 11 char 0-9        
