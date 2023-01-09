@@ -1,9 +1,5 @@
-Check function:
-- Post Code should have 5 char only numbers and ignor "-" symbol 
-    
-1. Hide password
-2. check if login, pesel or email exist. If exist then display message with error.
-3. Login - use login and passwort to login (show message if login or not)
+TO DO:
+- Login - use login and passwort to login (show message if login or not)
 
 
 
@@ -18,4 +14,6 @@ DONE:
 - check if password and rePassword is the same
 - Password should contain min 8 char, 1 sepcial symbol, 1 Big letter, 1 digit
 - Login should be longer than 8 char
-  
+- Post Code should have 5 char only numbers and ignor "-" symbol 
+- Hide password
+- check if login, pesel or email exist. If not exist then display message with error.

@@ -1,23 +1,27 @@
-{
-  "Name": "afdsadfasf",
-  "Surname": "fasdfasd",
-  "City": "asdfasd",
-  "Address": "fasdfa",
-  "Login": "sdfasdf",
-  "Password": "!Abcd123",
-  "Sex": "Other",
-  "PhoneNumber": "123456789",
-  "Pesel": "12345678974",
-  "PostCode": "dsfasfa"
-}{
-  "Name": "afdsadfasf",
-  "Surname": "fasdfasd",
-  "City": "asdfasd",
-  "Address": "fasdfa",
-  "Login": "sdfasdf",
-  "Password": "!Abcd123a",
-  "Sex": "Other",
-  "PhoneNumber": "123456789",
-  "Pesel": "12345678974",
-  "PostCode": "dsfasfa"
-}
+    [
+        {
+            "name": "asfdasdfsafas",
+            "surname": "dfasfasdf",
+            "city": "asfasdfas",
+            "address": "dfsafasd",
+            "login": "sdgfsafsadf",
+            "password": "!1234Qwer",
+            "sex": "Other",
+            "email": "mail@gmail.com",
+            "phoneNumber": "123123123",
+            "pesel": "12312312312",
+            "postCode": "12351"
+        },{
+            "name": "sadfsadfsdaf",
+            "surname": "sadfasdfsadf",
+            "city": "sadfsadfsa",
+            "address": "dfsafas",
+            "login": "sdfsadfsafd",
+            "password": "!1234Qwer",
+            "sex": "Male",
+            "email": "mail@wp.pl",
+            "phoneNumber": "123123123",
+            "pesel": "12312312312",
+            "postCode": "12341"
+      }
+    ]
