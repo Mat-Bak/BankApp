@@ -13,12 +13,15 @@ import java.awt.List;
 public class Account {
 
     
-   private String name, surname, city, address, login, password, rePassword, sex, email, phoneNumber, pesel, postCode;
+   private String name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode;
     public Account(){
         
     }
    
+   
     public Account(String name, String surname, String city, String address, String login, String password, String sex, String email, String phoneNumber, String pesel, String postCode  ) {
+        
+        /*
         name = this.name;
         surname = this.surname;
         city = this.city;
@@ -30,6 +33,19 @@ public class Account {
         phoneNumber = this.phoneNumber;
         pesel = this.pesel;
         postCode = this.postCode;
+        */
+        
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
+        this.address = address;
+        this.login = login;
+        this.password = password;
+        this.sex = sex;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.pesel = pesel;
+        this.postCode = postCode;
     }
 
     public String getName() {

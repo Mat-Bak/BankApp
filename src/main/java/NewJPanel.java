@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -27,8 +28,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import org.json.JSONArray;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -39,6 +46,10 @@ import javax.swing.border.Border;
  * @author Mateusz
  */
 public class NewJPanel extends javax.swing.JPanel {
+    
+    
+    
+    
     String name, surname, city, address, login, password, rePassword, sex, email, phoneNumber, pesel, postCode;
    // Account person;
      JFrame F = new JFrame("Panel");
@@ -52,6 +63,9 @@ public class NewJPanel extends javax.swing.JPanel {
      */
     public NewJPanel() {
         initComponents();
+        //ErrorLabelScrol.setBackground(new Color(238,238,238, 255));
+        ErrorPane.setBackground(new Color(238,238,238, 255));
+        ErrorPanel.setBackground(new Color(238,238,238, 255));
     }
 
     /**
@@ -96,18 +110,20 @@ public class NewJPanel extends javax.swing.JPanel {
         RePassword_Name = new javax.swing.JLabel();
         Password = new javax.swing.JPasswordField();
         RePassword = new javax.swing.JPasswordField();
+        ErrorPane = new javax.swing.JScrollPane();
+        ErrorPanel = new javax.swing.JTextPane();
 
-        setMinimumSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(500, 400));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(500, 400));
 
         MainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         MainPanel.setInheritsPopupMenu(true);
-        MainPanel.setMinimumSize(new java.awt.Dimension(600, 400));
+        MainPanel.setMinimumSize(new java.awt.Dimension(600, 500));
         MainPanel.setName(""); // NOI18N
         MainPanel.setPreferredSize(new java.awt.Dimension(500, 100));
 
-        LogiIn.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        LogiIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LogiIn.setMinimumSize(new java.awt.Dimension(500, 200));
 
         Login_Label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -131,7 +147,7 @@ public class NewJPanel extends javax.swing.JPanel {
         LogiInLayout.setHorizontalGroup(
             LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(Login_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,16 +170,18 @@ public class NewJPanel extends javax.swing.JPanel {
                 .addComponent(Password_label, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Log In", null, LogiIn, "");
 
-        Register.setBorder(javax.swing.BorderFactory.createLineBorder(null));
-        Register.setMinimumSize(new java.awt.Dimension(500, 400));
+        Register.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Register.setMinimumSize(new java.awt.Dimension(500, 500));
 
-        Last_Name.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        Last_Name.setAutoscrolls(false);
+        Last_Name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
+        First_Name.setAutoscrolls(false);
         First_Name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         First_Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,8 +191,10 @@ public class NewJPanel extends javax.swing.JPanel {
 
         City.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
+        Address.setAutoscrolls(false);
         Address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
+        PostCode.setAutoscrolls(false);
         PostCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         FirstName_Label.setText("First Name");
@@ -187,6 +207,7 @@ public class NewJPanel extends javax.swing.JPanel {
 
         PostCode_Label.setText("Post Code");
 
+        Phone_Number.setAutoscrolls(false);
         Phone_Number.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         PhoneNumber_Label.setText("Phone number");
@@ -205,23 +226,37 @@ public class NewJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Pesel");
 
+        Pesel_label.setAutoscrolls(false);
         Pesel_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         jLabel2.setText("Login");
 
+        Login_field.setAutoscrolls(false);
         Login_field.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         jLabel3.setText("E-mail");
 
+        Email_label.setAutoscrolls(false);
         Email_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
         Password_Name.setText("Password");
 
         RePassword_Name.setText("Repeat password");
 
+        Password.setAutoscrolls(false);
         Password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
+        RePassword.setAutoscrolls(false);
         RePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+
+        ErrorPane.setBorder(null);
+
+        ErrorPanel.setEditable(false);
+        ErrorPanel.setBorder(null);
+        ErrorPanel.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        ErrorPanel.setAutoscrolls(false);
+        ErrorPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ErrorPane.setViewportView(ErrorPanel);
 
         javax.swing.GroupLayout RegisterLayout = new javax.swing.GroupLayout(Register);
         Register.setLayout(RegisterLayout);
@@ -229,107 +264,100 @@ public class NewJPanel extends javax.swing.JPanel {
             RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegisterLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(FirstName_Label)
-                        .addComponent(First_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LastName_Label)
-                        .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PostCode_Label)
-                        .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Sex_Text)
-                        .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(Password_Name)
-                        .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
-                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(City_Label)
-                            .addComponent(Last_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Address_Label)
-                            .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PhoneNumber_Label)
-                            .addComponent(Phone_Number, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(Pesel_label, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(Email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RePassword_Name))
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
-                        .addComponent(RePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(First_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FirstName_Label)
+                    .addComponent(LastName_Label)
+                    .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PostCode_Label)
+                    .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Sex_Text)
+                    .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Password_Name)
+                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(City_Label)
+                    .addComponent(Last_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Address_Label)
+                    .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PhoneNumber_Label)
+                    .addComponent(Phone_Number, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(Pesel_label, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(Email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RePassword_Name)
+                    .addComponent(RePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
             .addGroup(RegisterLayout.createSequentialGroup()
-                .addGap(177, 177, 177)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegisterLayout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(RegisterLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(ErrorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         RegisterLayout.setVerticalGroup(
             RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegisterLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(FirstName_Label)
+                    .addComponent(City_Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(First_Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Last_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
-                        .addComponent(City_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(FirstName_Label)
-                        .addGap(2, 2, 2)))
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(First_Name)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LastName_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PostCode_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(Last_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Address_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PhoneNumber_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Phone_Number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(LastName_Label)
+                    .addComponent(Address_Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(City, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PostCode_Label)
+                    .addComponent(PhoneNumber_Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(PostCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Phone_Number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Sex_Text)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Pesel_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(Pesel_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Sex_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Email_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Email_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(Password_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RegisterLayout.createSequentialGroup()
-                        .addComponent(RePassword_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
+                    .addComponent(Password_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RePassword_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(RePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ErrorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Register", null, Register, "");
@@ -342,15 +370,16 @@ public class NewJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, Short.MAX_VALUE)
         );
 
         MainPanel.getAccessibleContext().setAccessibleName("form");
         MainPanel.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     private void First_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_First_NameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_First_NameActionPerformed
@@ -369,7 +398,7 @@ public class NewJPanel extends javax.swing.JPanel {
         }
         */
         
-        List<Account> loadData = loadData();
+       
         
         
         
@@ -378,6 +407,18 @@ public class NewJPanel extends javax.swing.JPanel {
         //int phoneNumber, pesel, postCode;
         
         //Set standard border color
+        
+        ErrorPanel.setForeground(Color.red);
+        
+        //ArrayList<String> errorList = new ArrayList<String>();
+        String errorList = "";
+        ErrorPanel.setText("");
+        /*
+        StyledDocument documentStyle = ErrorPanel.getStyledDocument();
+        SimpleAttributeSet centerAttribute = new SimpleAttributeSet();
+        StyleConstants.setAlignment(centerAttribute, StyleConstants.ALIGN_LEFT);
+        documentStyle.setParagraphAttributes(0, documentStyle.getLength(), centerAttribute, false);
+        */
         
         First_Name.setBorder(correct);
         Last_Name.setBorder(correct);
@@ -407,30 +448,44 @@ public class NewJPanel extends javax.swing.JPanel {
         pesel = Pesel_label.getText();
         postCode = PostCode.getText();
         
-        System.out.println("Login: " + login);
-        System.out.println("Email: " + email);
-        System.out.println("phoneNumber: " + phoneNumber);
-        
-        for(Account userData : loadData){
-            System.out.println("User Login: " + userData.getLogin());
-            System.out.println("User Email: " + userData.getEmail());
-            System.out.println("User PhoneNumber: " + userData.getPhoneNumber());
-            if((userData.getLogin().equals(login))){
-                Login_Field.setBorder(empty);
-                System.out.println("Login exist!");
-                return;
-            } 
-            if(userData.getEmail().equals(email)){
-                Email_label.setBorder(empty);
-               System.out.println("Email exist!");
-                return; 
+        //System.out.println("Login: " + login);
+        //System.out.println("Email: " + email);
+        //System.out.println("phoneNumber: " + phoneNumber);
+        List<Account> loadData = null;
+        try{
+            loadData = loadData();
+            for(Account userData : loadData){
+                //System.out.println("User Login: " + userData.getLogin());
+                //System.out.println("User Email: " + userData.getEmail());
+                //System.out.println("User PhoneNumber: " + userData.getPhoneNumber());
+                if((userData.getLogin().equals(login))){
+                    Login_Field.setBorder(empty);
+                    errorList += " Login Already Exist!" + "\n";
+                    //ErrorLabel.setText("Login Already Exist!");
+                    //System.out.println("Login exist!");
+                    //return;
+                } 
+                if(userData.getEmail().equals(email)){
+                    //ErrorLabel.setText("Email Already Exist!");
+                    errorList += "Email Already Exist!" + "\n";
+                    Email_label.setBorder(empty);
+                   //System.out.println("Email exist!");
+                    //return; 
+                }
+                if(userData.getPhoneNumber().equals(phoneNumber)){
+                    //ErrorLabel.setText("Phone Number Already Exist!");
+                    errorList += "Phone Number Already Exist!" +"\n";
+                    Phone_Number.setBorder(empty);
+                    //System.out.println("PhoneNumber exist!");
+                    //return;
+                } 
             }
-            if(userData.getPhoneNumber().equals(phoneNumber)){
-                Phone_Number.setBorder(empty);
-                System.out.println("PhoneNumber exist!");
-                return;
-            }
+            
+        } catch (Exception e) {
         }
+        
+         
+        
         
        // person = new Account(name, surname, city, address, login, password, sex, email,
         //        phoneNumber, pesel, postCode);
@@ -442,7 +497,7 @@ public class NewJPanel extends javax.swing.JPanel {
             accountData.add(City);
             accountData.add(Address);
             accountData.add(Login_field);
-            accountData.add(Password_label);
+            accountData.add(Password);
             accountData.add(RePassword);
             accountData.add(Email_label);
             accountData.add(Phone_Number);
@@ -455,11 +510,16 @@ public class NewJPanel extends javax.swing.JPanel {
         
          //Save data to file
          try{
+             
             JsonObject obj = new JsonObject();
+            JSONArray arr = new JSONArray();
              //System.out.println("1");
             File file = new File(outputFilePath);
           // System.out.println("2");
 
+
+          
+          
             obj.addProperty("name", name);
             obj.addProperty("surname", surname);
             obj.addProperty("city", city);
@@ -471,32 +531,68 @@ public class NewJPanel extends javax.swing.JPanel {
             obj.addProperty("phoneNumber", phoneNumber);
             obj.addProperty("pesel", pesel);
             obj.addProperty("postCode", postCode);
+          
            // System.out.println("3");
 
             //check if data are corrected
-            checkData(First_Name, Last_Name, City, Address, Login_field, Password, RePassword, Email_label, Phone_Number, Pesel_label, PostCode);
+            
+            
+            String checkDataErrorList = checkData(First_Name, Last_Name, City, Address, Login_field, Password, RePassword, Email_label, Phone_Number, Pesel_label, PostCode);
             // System.out.println("4");
             //check if Login is longer than 8 
+             System.out.println("Errors!: " + checkDataErrorList);
             if(login.length() < 8){
+                if(!login.isEmpty()){
+                    errorList+= "Login Is Too Short!" + "\n";
+                }
+                
+                //ErrorLabel.setText("Login Is Too Short!");
                 Login_field.setBorder(empty);
-            }else{
-                Login_field.setBorder(correct);
             }
             //System.out.println("5");
             
+            
             for(JTextField data : accountData){
                 if(data.getBorder() == empty){
+                    ErrorPanel.setText(ErrorPanel.getText() + errorList + checkDataErrorList);
                     return;
                 }
+                
             }
+            ErrorPanel.setForeground(Color.green);
+            ErrorPanel.setText("Account creation successful!");
+            loadData.add(new Account(name, surname, city, address, login, password, email, sex, phoneNumber, pesel, postCode));
+            
+            arr.put(obj);
             
             //System.out.println("6");
-            bf = new BufferedWriter(new FileWriter(file, true));
+            bf = new BufferedWriter(new FileWriter(file));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            /*
+            
+            Type type = new TypeToken<Map<String, Entry>>() {}.getType();
+            String fileName = "src/test/java/org/example/diary/test.json";
+            Reader reader = new FileReader(new File(fileName));
+            Map<String, Entry> diary = gson.fromJson(reader, type);
+            diary.get("2019-01-13").setTextfield1("modified field");
+            Entry e = new Entry();
+            e.setDate("2019-01-14");
+            e.setScale(3);
+            e.setTextfield1("Dear Diary");
+            e.setTextfield1("I met a ...");
+            diary.put(e.getDate(), e);
+            FileWriter fw = new FileWriter(new File(fileName + ".out.json"));
+            gson.toJson(diary, fw);
+            fw.close();
+            
+            */
+           
             //JsonElement account = gson.toJsonTree(person);
            // System.out.println("7");
-            
-            gson.toJson(obj, bf);
+           //JSONArray ja = new JSONArray();
+           //ja.put(obj);
+            gson.toJson(loadData, bf);
             System.out.println("Data Saved!");
 
             bf.flush();
@@ -537,7 +633,9 @@ System.out.println("2");
         List<Account> data = null;
         
         try {
+            //System.out.println("Data loaded");
            File file = new File(outputFilePath);
+           // System.out.println("1");
            Gson gson = new Gson();
           // System.out.println("1");
            BufferedReader bf = new BufferedReader(new FileReader(file));
@@ -546,12 +644,14 @@ System.out.println("2");
             
             //Type type = new TypeToken<Map<String, String>>(){}.getType();
             //Map<String, String> myMap = gson.fromJson(reader, type);
-            
-            Type userType = new TypeToken<List<Account>>(){}.getType();
+             //System.out.println("2");
+            Type userType = new TypeToken<List<Account>>(){}.getType(); 
+            //System.out.println("3");
             data = gson.fromJson(bf, userType);
-  
+  // System.out.println("4");
         
         } catch (Exception e) {
+            System.out.println("ERROR DATA LOAD!");
              e.printStackTrace();
         }
         
@@ -562,11 +662,13 @@ System.out.println("2");
     }
     
     
-    public void checkData(JTextField name, JTextField surname, JTextField city, JTextField address, JTextField login, 
+    public String checkData(JTextField name, JTextField surname, JTextField city, JTextField address, JTextField login, 
             JPasswordField password, JPasswordField rePassword, JTextField email, JTextField phoneNumber, JTextField pesel, JTextField postCode){
             //Border empty = BorderFactory.createLineBorder(Color.RED, 1);
             //Border correct = BorderFactory.createLineBorder(Color.gray, 1);
 
+            String errorList = "";
+            
             ArrayList<JTextField> accountData = new ArrayList<JTextField>();
             accountData.add(name);
             accountData.add(surname);
@@ -580,61 +682,95 @@ System.out.println("2");
             accountData.add(pesel);
             accountData.add(postCode);
             
-            
+            boolean fieldIsEmpty = false;
             //Check if field is empty
             for(JTextField data : accountData){
                 if(data.getText().isEmpty()){
+                    fieldIsEmpty = true;
+                    //ErrorLabel.setText("Some Field Is Empty!");
                     data.setBorder(empty);
-                    System.out.println("Is Empty" + data);
-                }else{
-                    data.setBorder(correct);
+                    //System.out.println("Is Empty" + data);
                 }
             }
             
+            if(fieldIsEmpty){
+                errorList += "All fields must be completed" +"\n";
+            }
+            
             //check if Pesel contains only numbers and length is equal 11
-            isDigit(pesel, 11);
+            String peselError = isDigit(pesel, 11, "pesel");
             
             //check if phone number contains only numbers and length is equal 9
-            isDigit(phoneNumber, 9);
+            String phoneNumberError = isDigit(phoneNumber, 9, "phone number");
             
             //check if password is the same like rePassword
-            System.out.println("Password: " + String.valueOf(password.getPassword()) + " | " + "RePassword" + String.valueOf(rePassword.getPassword()));
+           // System.out.println("Password: " + String.valueOf(password.getPassword()) + " | " + "RePassword" + String.valueOf(rePassword.getPassword()));
             if(!String.valueOf(password.getPassword()).equals(String.valueOf(rePassword.getPassword()))){
+                errorList += "Password and rePassword Must Be The Same!" + "\n";
+                //ErrorLabel.setText("Password and rePassword Must Be The Same!");
                 password.setBorder(empty);
                 rePassword.setBorder(empty);
-                System.out.println("Password is not equal rePassword");
-            }else{
-                password.setBorder(correct);
-                rePassword.setBorder(correct);
+                //System.out.println("Password is not equal rePassword");
             }
             
             //check if password contain one special char, one big letter, one digit and is longer than 8
-            checkPassword(password);
+            String checkPasswordError = checkPassword(password);
                 
-            Pattern one = Pattern.compile("[0-9][0-9][-][0-9][0-9][0-9]");
-            Pattern two = Pattern.compile("[0-9][0-9][0-9][0-9][0-9]");
-            System.out.println("Postcode: " + postCode.getText());
-            Matcher matcherOne = one.matcher(postCode.getText());
-            Matcher matcherTwo = two.matcher(postCode.getText());
-            if(matcherOne.find() || matcherTwo.find()){
-                System.out.println("Match exist!");
-            }else{
-                System.out.println("Match not exist!");
+            Pattern postCodeOne = Pattern.compile("[0-9]{5}");
+            //System.out.println("Postcode: " + postCode.getText());
+            //Matcher matchPostCodeOne = postCodeOne.matcher(postCode.getText());
+            boolean matchPostCodeOne = Pattern.matches("[0-9]{5}", postCode.getText());
+            System.out.println("PostCode text: " + postCode.getText());
+            if(!matchPostCodeOne){
+                postCode.setBorder(empty);
+                if(!postCode.getText().isEmpty()){
+                    errorList += "Post Code Is Invalid!" + "\n";
+                }
+                
+               // ErrorLabel.setText("Post Code Is Invalid!");
+                //System.out.println("Match postCode not exist!");
             }
-           
+            
+            //Pattern emailPattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+            String emailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+            //Matcher matchEmail = emailPattern.matcher(email.getText());
+            boolean matchEmail = Pattern.matches(emailPattern, email.getText());
+            if(!matchEmail){
+                
+                email.setBorder(empty);
+                if(!email.getText().isEmpty()){
+                    errorList += "Email Is Invalid!" +"\n" ;
+                }
+                //.setText("Email Is Invalid!");
+                //System.out.println("Match email not exist!");
+            }
+            errorList += checkPasswordError + peselError + phoneNumberError;
+            return errorList;
             
     }
     
-    public boolean checkPassword(JPasswordField password){
+    public String checkPassword(JPasswordField password){
         boolean upperCase = false;
         boolean lowerCase = false;
         boolean digit = false;
         boolean specialChar = false;
         
-        String text = password.getText();
+        String correctPassword = "The password should contain:" + "\n" +
+                                    " * At least one uppercase and lowercase letter" + "\n" +
+                                    " * Should be greater than or equal to 6" + "\n" +
+                                    " * Should contain at least one number" + "\n" +
+                                    " * Should contain at least one special character" ;
         
+        String tooShort = "Password is too short!" +"\n";
+        
+        String text = password.getText();
+        System.out.println("Check Password!");
         if(text.length() < 8){
-            return false;
+            if(!text.isEmpty()){
+                return tooShort;
+            }
+            System.out.println("Password is too short!");
+            return "";
         }
         
         for(int i = 0; i < text.length(); ++i){
@@ -656,32 +792,41 @@ System.out.println("2");
         }
         
         
+                                      
+        
         if(upperCase && digit && specialChar && lowerCase){
+            System.out.println("Password is correct!");
             password.setBorder(correct);
-            return true;
+            return "";
         }else{
-            System.out.println("Bad password");
+            //System.out.println("Bad password");
+            //ErrorLabel.setText(ErrorLabel.getText() + correctPassword + "\n");
             password.setBorder(empty);
-            return false;
+            return correctPassword;
         }
     }
     
     
     // Method allow to check if every char in str is digit and length of str is equal length
-    public void isDigit(JTextField str, int length){
+    public String isDigit(JTextField str, int length, String name){
+        String errorList = "";
         if(str.getText().length() !=  length){
-                System.out.println("Length is not equal " + length);
+                //System.out.println("Length is not equal " + length);
+                
                 str.setBorder(empty);
-            }else{
-                str.setBorder(correct);
+                if(!str.getText().isEmpty()){
+                    errorList += "Length in " + name +" must be equal " + length + "\n";
+                }
             }
             for(int i = 0; i < str.getText().length(); ++i){
                 char checkChar = str.getText().charAt(i);
                 if(!Character.isDigit(checkChar)){
-                    System.out.println("Char is not digit");
+                    errorList += "Field should contain only digits" + "\n";
+                    //System.out.println("Char is not digit");
                     str.setBorder(empty);
                 }
             }
+            return errorList;
     }
     
    
@@ -724,13 +869,10 @@ System.out.println("2");
         
 
     }
-    
-    
+
    
     public static void main(String[] args) {
-        
-        List<Account> userData = loadData();
-  
+
         Gson gson = new Gson();
         NewJPanel N = new NewJPanel();
         N.setPreferredSize(new Dimension(500,500));
@@ -750,6 +892,8 @@ System.out.println("2");
     private javax.swing.JTextField City;
     private javax.swing.JLabel City_Label;
     private javax.swing.JTextField Email_label;
+    private javax.swing.JScrollPane ErrorPane;
+    private javax.swing.JTextPane ErrorPanel;
     private javax.swing.JLabel FirstName_Label;
     private javax.swing.JTextField First_Name;
     private javax.swing.JLabel LastName_Label;
