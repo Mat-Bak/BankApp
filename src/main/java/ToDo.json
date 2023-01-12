@@ -1,6 +1,8 @@
 TO DO:
 - Login - use login and passwort to login (show message if login or not)
-
+- Create new Panel where after login user can change password, check profil witch informations, 
+        withdraw cash, deposit cash, check account balance, Delete account
+        Logout (maybe auto logout after 10min)
 
 
 
