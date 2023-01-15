@@ -1,67 +1,16 @@
 [
   {
-    "name": "Adam",
-    "surname": "Doe",
-    "city": "Poznan",
-    "address": "Kolorowa 12",
-    "login": "tajnyLogin",
+    "name": "asfasdfasdfas",
+    "surname": "dfasdfasdfasf",
+    "city": "asfasfsafsaf",
+    "address": "safsafasfasdf",
+    "login": "sdafsafasf",
     "password": "!1234Qwer",
-    "sex": "Male",
-    "email": "john.doe@example.com",
-    "phoneNumber": "458785458",
-    "pesel": "45898565487",
-    "postCode": "85478"
-  },
-  {
-    "name": "Bob",
-    "surname": "Sue",
-    "city": "Krakov",
-    "address": "srednia 122",
-    "login": "toJestLogin",
-    "password": "!1234Qwer",
-    "sex": "Female",
-    "email": "Bob.doe@example.com",
-    "phoneNumber": "525252525",
-    "pesel": "52332565232",
-    "postCode": "854-74"
-  },
-  {
-    "name": "Adam",
-    "surname": "Kelvin",
-    "city": "Warsav",
-    "address": "kopiec 44",
-    "login": "toJestLogin",
-    "password": "!1234Qwer",
-    "sex": "tadasda@wp.pl",
+    "sex": "asfasfsa@wp.pl",
     "email": "Male",
-    "phoneNumber": "876675456",
-    "pesel": "58772003212",
-    "postCode": "453-23"
-  },
-  {
-    "name": "hshgsdgdsgdsf",
-    "surname": "gdsgdsgdsgds",
-    "city": "sdgsdgsdgsd",
-    "address": "gdsgsdfgsdg",
-    "login": "asfsafasfasfsaf",
-    "password": "!1234Qwer",
-    "sex": "safasfas@wp.pl",
-    "email": "Other",
-    "phoneNumber": "244321123",
-    "pesel": "33444222366",
-    "postCode": "12354"
-  },
-  {
-    "name": "hsdghdfhdfghdfj",
-    "surname": "dfjdfhdfdfhdf",
-    "city": "hdfhdfhdf",
-    "address": "dfhdfhd",
-    "login": "sdgfdsgsdgsdg",
-    "password": "!1234Qwer",
-    "sex": "sfsdgsd@wp.pl",
-    "email": "Other",
-    "phoneNumber": "888999888",
-    "pesel": "88899988898",
-    "postCode": "99999"
+    "phoneNumber": "123123123",
+    "pesel": "12312312312",
+    "postCode": "12312",
+    "balance": 0
   }
 ]

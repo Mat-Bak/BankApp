@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -35,11 +36,12 @@ public class NewJPanel extends javax.swing.JPanel {
     
     
     String name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode;
+    int balance;
     JFrame F = new JFrame("Panel");
-    
+    static String getPesel = "";
     //Red border if field is wrong and gray if it is correct
-    Border empty = BorderFactory.createLineBorder(Color.RED, 1);
-    Border correct = BorderFactory.createLineBorder(Color.gray, 1);
+    static Border empty = BorderFactory.createLineBorder(Color.RED, 1);
+    static Border correct = BorderFactory.createLineBorder(Color.gray, 1);
     
     // Path to file with data
     static Path currentRelativePath = Paths.get("");
@@ -49,12 +51,15 @@ public class NewJPanel extends javax.swing.JPanel {
      
     public NewJPanel() {
         initComponents();
-        MainPanel.setVisible(true);
-        AccountPanel.setVisible(false);
         ErrorPane.setBackground(new Color(238,238,238, 255));
         ErrorPanel.setBackground(new Color(238,238,238, 255));
+        testPanel.setVisible(false);
+        MainPanel.setVisible(true);
     }
-
+    
+    static NewJPanel N = new NewJPanel();
+    DepositMaoney showPanel = new DepositMaoney();
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -66,6 +71,7 @@ public class NewJPanel extends javax.swing.JPanel {
         Password_Label = new javax.swing.JLabel();
         Login = new javax.swing.JButton();
         Password_Field = new javax.swing.JPasswordField();
+        loginError = new javax.swing.JLabel();
         Register = new javax.swing.JPanel();
         Last_Name = new javax.swing.JTextField();
         First_Name = new javax.swing.JTextField();
@@ -94,7 +100,16 @@ public class NewJPanel extends javax.swing.JPanel {
         RePassword = new javax.swing.JPasswordField();
         ErrorPane = new javax.swing.JScrollPane();
         ErrorPanel = new javax.swing.JTextPane();
-        AccountPanel = new javax.swing.JPanel();
+        testPanel = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        balanceField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        accountInfo = new javax.swing.JTextPane();
+        jButton8 = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName(""); // NOI18N
@@ -131,20 +146,24 @@ public class NewJPanel extends javax.swing.JPanel {
             }
         });
 
+        loginError.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        loginError.setForeground(new java.awt.Color(102, 0, 0));
+        loginError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout LogiInLayout = new javax.swing.GroupLayout(LogiIn);
         LogiIn.setLayout(LogiInLayout);
         LogiInLayout.setHorizontalGroup(
             LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
-                .addGroup(LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(Login_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Login_Label))
-                    .addComponent(Password_Label, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(Password_Field, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(166, 166, 166))
+                .addContainerGap(112, Short.MAX_VALUE)
+                .addGroup(LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Login_Label)
+                    .addComponent(Login_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Password_Label)
+                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Password_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(113, 113, 113))
         );
         LogiInLayout.setVerticalGroup(
             LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +176,11 @@ public class NewJPanel extends javax.swing.JPanel {
                 .addComponent(Password_Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Password_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Log In", null, LogiIn, "");
@@ -355,15 +376,93 @@ public class NewJPanel extends javax.swing.JPanel {
 
         MainPanel.addTab("Register", null, Register, "");
 
-        javax.swing.GroupLayout AccountPanelLayout = new javax.swing.GroupLayout(AccountPanel);
-        AccountPanel.setLayout(AccountPanelLayout);
-        AccountPanelLayout.setHorizontalGroup(
-            AccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+        jButton3.setText("Deposit Cash");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Withdraw Cash");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Log Out");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        balanceField.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        balanceField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        balanceField.setText("0");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Balance:");
+
+        jButton7.setText("Change Password");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        accountInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(accountInfo);
+
+        jButton8.setText("Delete Account");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout testPanelLayout = new javax.swing.GroupLayout(testPanel);
+        testPanel.setLayout(testPanelLayout);
+        testPanelLayout.setHorizontalGroup(
+            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testPanelLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(testPanelLayout.createSequentialGroup()
+                        .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
-        AccountPanelLayout.setVerticalGroup(
-            AccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+        testPanelLayout.setVerticalGroup(
+            testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -372,13 +471,17 @@ public class NewJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(AccountPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(testPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(506, 506, 506))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(AccountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         MainPanel.getAccessibleContext().setAccessibleName("form");
@@ -428,35 +531,12 @@ public class NewJPanel extends javax.swing.JPanel {
         phoneNumber = Phone_Number.getText();
         pesel = Pesel_label.getText();
         postCode = PostCode.getText();
+        balance = 0;
 
-        List<Account> loadDataFromFile = null;
-        try{
-            //Load data from file to list
-            loadDataFromFile = loadData();
-            //check if login, phone number or email already exist in file 
-            for(Account userData : loadDataFromFile){
-                if((userData.getLogin().equals(login))){
-                    Login_Field.setBorder(empty);
-                    errorList += """
-                                  Login Already Exist!
-                                 """;
-                } 
-                if(userData.getEmail().equals(email)){
-                    errorList += """
-                                 Email Already Exist!
-                                 """;
-                    Email_label.setBorder(empty); 
-                }
-                if(userData.getPhoneNumber().equals(phoneNumber)){
-                    errorList += """
-                                 Phone Number Already Exist!
-                                 """;
-                    Phone_Number.setBorder(empty);
-                } 
-            }
+        
             
-        } catch (Exception e) {
-        }
+            
+       
         
        
         
@@ -483,6 +563,8 @@ public class NewJPanel extends javax.swing.JPanel {
             JsonObject obj = new JsonObject();
             File file = new File(outputFilePath);
           
+            
+            
             obj.addProperty("name", name);
             obj.addProperty("surname", surname);
             obj.addProperty("city", city);
@@ -494,6 +576,7 @@ public class NewJPanel extends javax.swing.JPanel {
             obj.addProperty("phoneNumber", phoneNumber);
             obj.addProperty("pesel", pesel);
             obj.addProperty("postCode", postCode);
+            obj.addProperty("balance",balance);
 
             // check that all data is correct
             String checkDataErrorList = checkData(First_Name, Last_Name, City, Address, Login_field, Password, RePassword, Email_label, Phone_Number, Pesel_label, PostCode);
@@ -506,6 +589,39 @@ public class NewJPanel extends javax.swing.JPanel {
                 Login_field.setBorder(empty);
             }
             
+            List<Account> loadDataFromFile = null;
+            //Load data from file to list
+            loadDataFromFile = loadData();
+            //check if login, phone number or email already exist in file 
+            //if(loadDataFromFile != null){
+                for(Account userData : loadDataFromFile){
+                    if((userData.getLogin().equals(login))){
+                        Login_Field.setBorder(empty);
+                        errorList += """
+                                      Login Already Exist!
+                                     """;
+                    } 
+                    if(userData.getEmail().equals(email)){
+                        errorList += """
+                                     Email Already Exist!
+                                     """;
+                        Email_label.setBorder(empty); 
+                    }
+                    if(userData.getPhoneNumber().equals(phoneNumber)){
+                        errorList += """
+                                     Phone Number Already Exist!
+                                     """;
+                        Phone_Number.setBorder(empty);
+                    } 
+                }
+            //}
+            loadDataFromFile.add(new Account(name, surname, city, address, login, password, email, sex, phoneNumber, pesel, postCode, balance));
+            bf = new BufferedWriter(new FileWriter(file));
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            gson.toJson(loadDataFromFile, bf);
+            
+            
             // if any field has a red border, it means that it is invalid and the data cannot be written to the file
             for(JTextField data : accountData){
                 if(data.getBorder() == empty){
@@ -517,12 +633,7 @@ public class NewJPanel extends javax.swing.JPanel {
             // If everything is ok, save the data to a file and show a successful message
             ErrorPanel.setForeground(new Color(17,74,0));
             ErrorPanel.setText("Account creation successful!");
-            loadDataFromFile.add(new Account(name, surname, city, address, login, password, email, sex, phoneNumber, pesel, postCode));
-
-            bf = new BufferedWriter(new FileWriter(file));
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-            gson.toJson(loadDataFromFile, bf);
+            
             System.out.println("Data Saved!");
 
             bf.flush();          
@@ -544,9 +655,10 @@ public class NewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String login = Login_Field.getText();
         String password = Password_Field.getText();
-        
+        boolean loginSuccessful = false;
         List<Account> data = loadData();
-        
+        int accountBalance = 0;
+        String info = "";
         for(Account users : data){
             if(users.getLogin().equals(login) && users.getPassword().equals(password)){
                 System.out.println("""
@@ -556,15 +668,164 @@ public class NewJPanel extends javax.swing.JPanel {
                 Account loadUser = new Account(users.getName(), users.getSurname(), users.getCity(), 
                         users.getAddress(), users.getLogin(), users.getPassword(), 
                         users.getSex(), users.getEmail(), users.getPhoneNumber(), users.getPesel(), 
-                        users.getPostCode());
+                        users.getPostCode(), users.getBalance());
                 MainPanel.setVisible(false);
-                AccountPanel.setVisible(true);
+                F.add(testPanel);
+                testPanel.setVisible(true);
+                accountBalance = users.getBalance();
+                //AccountPanel.setVisible(true);
+                info += "Name: " + users.getName() + "\n" + "Surname: " + users.getSurname() + "\n"
+                        + "Address: " + users.getCity() + ", " + users.getAddress() + ", " + users.getPostCode() + "\n"
+                        + "Sex: " + users.getSex() + "\n" + "Email: " + users.getEmail() + "\n" + "Pesel: " + users.getPesel();
+                loginSuccessful = true;
+                getPesel = users.getPesel();
                 break;
             }
         }
+        if(!loginSuccessful){
+            loginError.setText("Login or Password is invalid");
+        }
+        balanceField.setText(String.valueOf(accountBalance));
+        accountInfo.setText(info);
+        
         
         
     }//GEN-LAST:event_LoginActionPerformed
+
+    public static void depositCash(String add){
+        int addBalance = Integer.parseInt(balanceField.getText()) + Integer.parseInt(add);
+        balanceField.setText(String.valueOf(addBalance));
+    }
+    
+    public static boolean withdrawCash(String cash){
+        int getBalance = Integer.parseInt(balanceField.getText());
+        int withdraw = getBalance - Integer.parseInt(cash);
+        if(getBalance >= Integer.parseInt(cash)){
+            balanceField.setText(String.valueOf(withdraw));
+            return true;
+        }else{
+            WithdrawMoney.setError("Not Enought Money");
+            return false;
+        }
+    }
+    
+    public static void changePassword(JPasswordField oldPassword ,JPasswordField newPassword, JPasswordField reNewPassword){
+        List<Account> data = loadData();
+        String changePass = checkPassword(newPassword);
+        BufferedWriter bf = null;
+        File file = new File(outputFilePath);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if(oldPassword.getText().equals(newPassword.getText())){
+            changePassword.setText("New password can not be the same like old password");
+            return;
+        }
+        if(!newPassword.getText().equals(reNewPassword.getText())){
+            changePassword.setText("Invalid Data");
+            return;
+        }
+        //System.out.println("changepass: " + changePass);
+
+        try {
+            if(changePass.isEmpty()){
+            for(Account users: data){
+                if(users.getPesel().equals(getPesel)  && users.getPassword().equals(oldPassword.getText())){
+                    users.setPassword(newPassword.getText());
+                    System.out.println("new Password: " + users.getPassword());
+                    bf = new BufferedWriter(new FileWriter(file));
+                    gson.toJson(data, bf);
+                    changePassword.setText("Password changed successful!");
+                    break;
+                }
+            }
+            bf.flush();
+        }
+        } catch (Exception e) {
+            System.out.println("Change password error!");
+        } 
+        
+    }
+    
+    public static boolean checkDataToRemoveAccount(JTextField pesel, JPasswordField password, JLabel error){
+        List<Account> data = loadData();
+        
+        for(Account users : data){
+            if(users.getPesel().equals(getPesel)){
+                if(pesel.getText().equals(users.getPesel()) && password.getText().equals(users.getPassword())){
+                    return true;
+                }else{
+                    error.setText("Incorrect data");
+                    return false;
+                }
+            }
+        }
+        error.setText("Incorrect data");
+        return false;
+        
+    }
+    
+    public static void removeAccount(){
+        List<Account> data = loadData();
+        BufferedWriter bf = null;
+        File file = new File(outputFilePath);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            for(Account users : data){
+                if(users.getPesel().equals(getPesel)){
+                    data.remove(users);
+                    bf = new BufferedWriter(new FileWriter(file));
+                    gson.toJson(data, bf);
+                    break;
+                }
+            }
+            bf.flush();
+        } catch (Exception e) {
+            System.out.println("Delete user Error!");
+        }
+        
+        
+    }
+    
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        testPanel.setVisible(false);
+        MainPanel.setVisible(true);
+        Login_Field.setText("");
+        Password_Field.setText("");
+                
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        changePassword createNewPassword = new changePassword();
+        createNewPassword.setVisible(true);
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        DepositMaoney deposit = new DepositMaoney();
+        deposit.setVisible(true);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        WithdrawMoney withdraw = new WithdrawMoney();
+        withdraw.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        
+        DeleteAccount removeAcc = new DeleteAccount();
+        removeAcc.setVisible(true);
+        
+       
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     
     //Load data from file to List
@@ -576,10 +837,8 @@ public class NewJPanel extends javax.swing.JPanel {
            File file = new File(outputFilePath);
            Gson gson = new Gson();
            BufferedReader bf = new BufferedReader(new FileReader(file));
-
-            Type userType = new TypeToken<List<Account>>(){}.getType(); 
-            data = gson.fromJson(bf, userType);
-        
+           Type userType = new TypeToken<List<Account>>(){}.getType(); 
+           data = gson.fromJson(bf, userType);
         } catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
             System.out.println("ERROR DATA LOAD!");
         }
@@ -668,7 +927,7 @@ public class NewJPanel extends javax.swing.JPanel {
     }
     
     // check that the password meets all the conditions
-    public String checkPassword(JPasswordField password){
+    public static String checkPassword(JPasswordField password){
         boolean upperCase = false;
         boolean lowerCase = false;
         boolean digit = false;
@@ -760,16 +1019,18 @@ public class NewJPanel extends javax.swing.JPanel {
         F.setMinimumSize(new Dimension(500,500));
         F.setPreferredSize(new Dimension(500,500));
         F.add(MainPanel);
+        
         F.setVisible(true);
-        String getName = Login_Field.getText();
+        //String getName = Login_Field.getText();
     }
 
    
     public static void main(String[] args) {
 
-        NewJPanel N = new NewJPanel();
+        
         N.setPreferredSize(new Dimension(500,500));
         N.createGUI();
+       
 
         
         
@@ -777,7 +1038,6 @@ public class NewJPanel extends javax.swing.JPanel {
        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AccountPanel;
     private javax.swing.JTextField Address;
     private javax.swing.JLabel Address_Label;
     private javax.swing.JTextField City;
@@ -809,9 +1069,20 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Register;
     private javax.swing.JLabel Sex_Text;
     private javax.swing.JComboBox<String> Sex_box;
+    private javax.swing.JTextPane accountInfo;
+    private static javax.swing.JTextField balanceField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel loginError;
+    private javax.swing.JPanel testPanel;
     // End of variables declaration//GEN-END:variables
 }

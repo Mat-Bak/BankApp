@@ -1,11 +1,9 @@
 TO DO:
-- Login - use login and passwort to login (show message if login or not)
-- Create new Panel where after login user can change password, check profil witch informations, 
-        withdraw cash, deposit cash, check account balance, Delete account
-        Logout (maybe auto logout after 10min)
 
 
 
+
+    
 
 
 --------------------------------------------------------------------------------
@@ -19,3 +17,10 @@ DONE:
 - Post Code should have 5 char only numbers and ignor "-" symbol 
 - Hide password
 - check if login, pesel or email exist. If not exist then display message with error.
+- Login - use login and passwort to login (show message if login or not)
+- Deposit money
+- Withdraw money
+- change password
+- Panel with account info 
+- Logout 
+- Delete account

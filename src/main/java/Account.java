@@ -14,12 +14,13 @@ public class Account {
 
     
    private String name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode;
+   int balance;
     public Account(){
         
     }
    
    
-    public Account(String name, String surname, String city, String address, String login, String password, String sex, String email, String phoneNumber, String pesel, String postCode  ) {
+    public Account(String name, String surname, String city, String address, String login, String password, String sex, String email, String phoneNumber, String pesel, String postCode, int balance  ) {
         
         /*
         name = this.name;
@@ -46,6 +47,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.pesel = pesel;
         this.postCode = postCode;
+        this.balance = balance;
     }
 
     public String getName() {
@@ -91,6 +93,16 @@ public class Account {
     public String getPostCode() {
         return postCode;
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
     
     
     
