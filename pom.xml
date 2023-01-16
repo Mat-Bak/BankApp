@@ -38,4 +38,5 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.mycompany.maventest.MavenTest</exec.mainClass>
     </properties>
+    <name>bankApplication</name>
 </project>

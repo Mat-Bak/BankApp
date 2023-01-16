@@ -11,7 +11,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.awt.Color;
-import java.util.List;import java.io.BufferedReader;
+import java.util.List;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,11 +31,8 @@ import javax.swing.border.Border;
  *
  * @author Mateusz
  */
-public class NewJPanel extends javax.swing.JPanel {
-    
-    
-    
-    
+public class MainApp extends javax.swing.JPanel {
+
     String name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode;
     int balance;
     JFrame F = new JFrame("Panel");
@@ -49,7 +47,10 @@ public class NewJPanel extends javax.swing.JPanel {
     final static String pathToFile = "\\src\\main\\java\\accounts.json";
     static String outputFilePath = projectPath + pathToFile;
      
-    public NewJPanel() {
+    /**
+     *
+     */
+    public MainApp() {
         initComponents();
         ErrorPane.setBackground(new Color(238,238,238, 255));
         ErrorPanel.setBackground(new Color(238,238,238, 255));
@@ -57,8 +58,7 @@ public class NewJPanel extends javax.swing.JPanel {
         MainPanel.setVisible(true);
     }
     
-    static NewJPanel N = new NewJPanel();
-    DepositMaoney showPanel = new DepositMaoney();
+    static MainApp N = new MainApp();
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -87,7 +87,7 @@ public class NewJPanel extends javax.swing.JPanel {
         PhoneNumber_Label = new javax.swing.JLabel();
         Sex_Text = new javax.swing.JLabel();
         Sex_box = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        registerNewAccount = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         Pesel_label = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -101,15 +101,15 @@ public class NewJPanel extends javax.swing.JPanel {
         ErrorPane = new javax.swing.JScrollPane();
         ErrorPanel = new javax.swing.JTextPane();
         testPanel = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        depositCashButton = new javax.swing.JButton();
+        withdrawCashButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         balanceField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        changePasswordButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         accountInfo = new javax.swing.JTextPane();
-        jButton8 = new javax.swing.JButton();
+        deleteAccountButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(500, 500));
         setName(""); // NOI18N
@@ -128,12 +128,6 @@ public class NewJPanel extends javax.swing.JPanel {
         Login_Label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Login_Label.setText("Login");
         Login_Label.setToolTipText("");
-
-        Login_Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Login_FieldActionPerformed(evt);
-            }
-        });
 
         Password_Label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Password_Label.setText("Password");
@@ -194,11 +188,6 @@ public class NewJPanel extends javax.swing.JPanel {
 
         First_Name.setAutoscrolls(false);
         First_Name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
-        First_Name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                First_NameActionPerformed(evt);
-            }
-        });
 
         City.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
 
@@ -228,10 +217,10 @@ public class NewJPanel extends javax.swing.JPanel {
 
         Sex_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Other", "Male", "Female", " " }));
 
-        jButton1.setText("Register");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerNewAccount.setText("Register");
+        registerNewAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registerNewAccountActionPerformed(evt);
             }
         });
 
@@ -312,7 +301,7 @@ public class NewJPanel extends javax.swing.JPanel {
             .addGroup(RegisterLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registerNewAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ErrorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -370,30 +359,30 @@ public class NewJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(ErrorPane, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registerNewAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Register", null, Register, "");
 
-        jButton3.setText("Deposit Cash");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        depositCashButton.setText("Deposit Cash");
+        depositCashButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                depositCashButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Withdraw Cash");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        withdrawCashButton.setText("Withdraw Cash");
+        withdrawCashButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                withdrawCashButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Log Out");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                logOutButtonActionPerformed(evt);
             }
         });
 
@@ -405,20 +394,20 @@ public class NewJPanel extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Balance:");
 
-        jButton7.setText("Change Password");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        changePasswordButton.setText("Change Password");
+        changePasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                changePasswordButtonActionPerformed(evt);
             }
         });
 
         accountInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(accountInfo);
 
-        jButton8.setText("Delete Account");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        deleteAccountButton.setText("Delete Account");
+        deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                deleteAccountButtonActionPerformed(evt);
             }
         });
 
@@ -432,15 +421,15 @@ public class NewJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(testPanelLayout.createSequentialGroup()
                         .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(depositCashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(withdrawCashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         testPanelLayout.setVerticalGroup(
@@ -452,16 +441,16 @@ public class NewJPanel extends javax.swing.JPanel {
                 .addComponent(balanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(withdrawCashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depositCashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -487,16 +476,9 @@ public class NewJPanel extends javax.swing.JPanel {
         MainPanel.getAccessibleContext().setAccessibleName("form");
         MainPanel.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
-
     
-    
-    
-    private void First_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_First_NameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_First_NameActionPerformed
-
     //Button register
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void registerNewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerNewAccountActionPerformed
         
         //set errors font color to red
         ErrorPanel.setForeground(Color.red);
@@ -534,12 +516,6 @@ public class NewJPanel extends javax.swing.JPanel {
         balance = 0;
 
         
-            
-            
-       
-        
-       
-        
         ArrayList<JTextField> accountData = new ArrayList<JTextField>();
             accountData.add(First_Name);
             accountData.add(Last_Name);
@@ -555,28 +531,10 @@ public class NewJPanel extends javax.swing.JPanel {
         
         BufferedWriter bf = null;
         
-        
-        
          //Save data to file
          try{
              
-            JsonObject obj = new JsonObject();
             File file = new File(outputFilePath);
-          
-            
-            
-            obj.addProperty("name", name);
-            obj.addProperty("surname", surname);
-            obj.addProperty("city", city);
-            obj.addProperty("address", address);
-            obj.addProperty("login", login);
-            obj.addProperty("password", password);
-            obj.addProperty("sex", sex);
-            obj.addProperty("email", email);
-            obj.addProperty("phoneNumber", phoneNumber);
-            obj.addProperty("pesel", pesel);
-            obj.addProperty("postCode", postCode);
-            obj.addProperty("balance",balance);
 
             // check that all data is correct
             String checkDataErrorList = checkData(First_Name, Last_Name, City, Address, Login_field, Password, RePassword, Email_label, Phone_Number, Pesel_label, PostCode);
@@ -592,29 +550,29 @@ public class NewJPanel extends javax.swing.JPanel {
             List<Account> loadDataFromFile = null;
             //Load data from file to list
             loadDataFromFile = loadData();
+            
             //check if login, phone number or email already exist in file 
-            //if(loadDataFromFile != null){
-                for(Account userData : loadDataFromFile){
-                    if((userData.getLogin().equals(login))){
-                        Login_Field.setBorder(empty);
-                        errorList += """
-                                      Login Already Exist!
-                                     """;
-                    } 
-                    if(userData.getEmail().equals(email)){
-                        errorList += """
-                                     Email Already Exist!
-                                     """;
-                        Email_label.setBorder(empty); 
-                    }
-                    if(userData.getPhoneNumber().equals(phoneNumber)){
-                        errorList += """
-                                     Phone Number Already Exist!
-                                     """;
-                        Phone_Number.setBorder(empty);
-                    } 
+            for(Account userData : loadDataFromFile){
+                if((userData.getLogin().equals(login))){
+                    Login_Field.setBorder(empty);
+                    errorList += """
+                                  Login Already Exist!
+                                 """;
+                } 
+                if(userData.getEmail().equals(email)){
+                    errorList += """
+                                 Email Already Exist!
+                                 """;
+                    Email_label.setBorder(empty); 
                 }
-            //}
+                if(userData.getPhoneNumber().equals(phoneNumber)){
+                    errorList += """
+                                 Phone Number Already Exist!
+                                 """;
+                    Phone_Number.setBorder(empty);
+                } 
+            }
+            
             loadDataFromFile.add(new Account(name, surname, city, address, login, password, email, sex, phoneNumber, pesel, postCode, balance));
             bf = new BufferedWriter(new FileWriter(file));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -630,25 +588,20 @@ public class NewJPanel extends javax.swing.JPanel {
                 }
                 
             }
+            
             // If everything is ok, save the data to a file and show a successful message
             ErrorPanel.setForeground(new Color(17,74,0));
             ErrorPanel.setText("Account creation successful!");
             
-            System.out.println("Data Saved!");
-
             bf.flush();          
             //file.close();
         }catch(JsonIOException | IOException e) {
             System.out.println("ERROR!!!!!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_registerNewAccountActionPerformed
 
     
     
-    private void Login_FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_FieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Login_FieldActionPerformed
-
     
     // Login account
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
@@ -659,21 +612,16 @@ public class NewJPanel extends javax.swing.JPanel {
         List<Account> data = loadData();
         int accountBalance = 0;
         String info = "";
+        
+        // Login to account if login and password are correct
         for(Account users : data){
             if(users.getLogin().equals(login) && users.getPassword().equals(password)){
-                System.out.println("""
-                                   Account Exist!
-                                   Login Successful
-                                   """);
-                Account loadUser = new Account(users.getName(), users.getSurname(), users.getCity(), 
-                        users.getAddress(), users.getLogin(), users.getPassword(), 
-                        users.getSex(), users.getEmail(), users.getPhoneNumber(), users.getPesel(), 
-                        users.getPostCode(), users.getBalance());
+                
                 MainPanel.setVisible(false);
                 F.add(testPanel);
                 testPanel.setVisible(true);
+                //set info about account
                 accountBalance = users.getBalance();
-                //AccountPanel.setVisible(true);
                 info += "Name: " + users.getName() + "\n" + "Surname: " + users.getSurname() + "\n"
                         + "Address: " + users.getCity() + ", " + users.getAddress() + ", " + users.getPostCode() + "\n"
                         + "Sex: " + users.getSex() + "\n" + "Email: " + users.getEmail() + "\n" + "Pesel: " + users.getPesel();
@@ -682,21 +630,29 @@ public class NewJPanel extends javax.swing.JPanel {
                 break;
             }
         }
+        
         if(!loginSuccessful){
             loginError.setText("Login or Password is invalid");
         }
+        
         balanceField.setText(String.valueOf(accountBalance));
-        accountInfo.setText(info);
-        
-        
-        
+        accountInfo.setText(info);      
     }//GEN-LAST:event_LoginActionPerformed
 
+    /**
+     *
+     * @param add
+     */
     public static void depositCash(String add){
         int addBalance = Integer.parseInt(balanceField.getText()) + Integer.parseInt(add);
         balanceField.setText(String.valueOf(addBalance));
     }
     
+    /**
+     *
+     * @param cash
+     * @return
+     */
     public static boolean withdrawCash(String cash){
         int getBalance = Integer.parseInt(balanceField.getText());
         int withdraw = getBalance - Integer.parseInt(cash);
@@ -709,12 +665,19 @@ public class NewJPanel extends javax.swing.JPanel {
         }
     }
     
+    /**
+     *
+     * @param oldPassword
+     * @param newPassword
+     * @param reNewPassword
+     */
     public static void changePassword(JPasswordField oldPassword ,JPasswordField newPassword, JPasswordField reNewPassword){
         List<Account> data = loadData();
         String changePass = checkPassword(newPassword);
         BufferedWriter bf = null;
         File file = new File(outputFilePath);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        // check that the new password is different from the old one and meets the conditions
         if(oldPassword.getText().equals(newPassword.getText())){
             changePassword.setText("New password can not be the same like old password");
             return;
@@ -723,33 +686,41 @@ public class NewJPanel extends javax.swing.JPanel {
             changePassword.setText("Invalid Data");
             return;
         }
-        //System.out.println("changepass: " + changePass);
 
         try {
+            // changePass should return empty if everything is ok or it should return a string with errors
+            // if changePass is empty then change password
             if(changePass.isEmpty()){
-            for(Account users: data){
-                if(users.getPesel().equals(getPesel)  && users.getPassword().equals(oldPassword.getText())){
-                    users.setPassword(newPassword.getText());
-                    System.out.println("new Password: " + users.getPassword());
-                    bf = new BufferedWriter(new FileWriter(file));
-                    gson.toJson(data, bf);
-                    changePassword.setText("Password changed successful!");
-                    break;
+                for(Account users: data){
+                    if(users.getPesel().equals(getPesel)  && users.getPassword().equals(oldPassword.getText())){
+                        users.setPassword(newPassword.getText());
+                        bf = new BufferedWriter(new FileWriter(file));
+                        gson.toJson(data, bf);
+                        changePassword.setText("Password changed successful!");
+                        break;
+                    }
                 }
+                bf.flush();
             }
-            bf.flush();
-        }
         } catch (Exception e) {
             System.out.println("Change password error!");
         } 
         
     }
     
+    /**
+     *
+     * @param pesel
+     * @param password
+     * @param error
+     * @return
+     */
     public static boolean checkDataToRemoveAccount(JTextField pesel, JPasswordField password, JLabel error){
         List<Account> data = loadData();
         
         for(Account users : data){
             if(users.getPesel().equals(getPesel)){
+                // confirm pesel and password to delete account
                 if(pesel.getText().equals(users.getPesel()) && password.getText().equals(users.getPassword())){
                     return true;
                 }else{
@@ -763,6 +734,9 @@ public class NewJPanel extends javax.swing.JPanel {
         
     }
     
+    /**
+     *
+     */
     public static void removeAccount(){
         List<Account> data = loadData();
         BufferedWriter bf = null;
@@ -785,50 +759,49 @@ public class NewJPanel extends javax.swing.JPanel {
         
     }
     
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
         testPanel.setVisible(false);
         MainPanel.setVisible(true);
         Login_Field.setText("");
         Password_Field.setText("");
                 
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
         // TODO add your handling code here:
         changePassword createNewPassword = new changePassword();
         createNewPassword.setVisible(true);
         
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_changePasswordButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void depositCashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositCashButtonActionPerformed
         // TODO add your handling code here:
         DepositMaoney deposit = new DepositMaoney();
         deposit.setVisible(true);
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_depositCashButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void withdrawCashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawCashButtonActionPerformed
         // TODO add your handling code here:
         WithdrawMoney withdraw = new WithdrawMoney();
         withdraw.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_withdrawCashButtonActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
         // TODO add your handling code here:
         
         DeleteAccount removeAcc = new DeleteAccount();
-        removeAcc.setVisible(true);
-        
-       
-        
-        
-        
-        
-    }//GEN-LAST:event_jButton8ActionPerformed
+        removeAcc.setVisible(true);  
+    }//GEN-LAST:event_deleteAccountButtonActionPerformed
 
     
     //Load data from file to List
+
+    /**
+     *
+     * @return
+     */
     public static List<Account> loadData(){
         
         List<Account> data = null;
@@ -847,6 +820,22 @@ public class NewJPanel extends javax.swing.JPanel {
     }
     
     //check the correctness of the data
+
+    /**
+     *
+     * @param name
+     * @param surname
+     * @param city
+     * @param address
+     * @param login
+     * @param password
+     * @param rePassword
+     * @param email
+     * @param phoneNumber
+     * @param pesel
+     * @param postCode
+     * @return
+     */
     public String checkData(JTextField name, JTextField surname, JTextField city, JTextField address, JTextField login, 
             JPasswordField password, JPasswordField rePassword, JTextField email, JTextField phoneNumber, JTextField pesel, JTextField postCode){
 
@@ -927,6 +916,12 @@ public class NewJPanel extends javax.swing.JPanel {
     }
     
     // check that the password meets all the conditions
+
+    /**
+     *
+     * @param password
+     * @return
+     */
     public static String checkPassword(JPasswordField password){
         boolean upperCase = false;
         boolean lowerCase = false;
@@ -989,6 +984,14 @@ public class NewJPanel extends javax.swing.JPanel {
     
     
     // Method allow to check if every char in str is digit and length of str is equal length
+
+    /**
+     *
+     * @param str
+     * @param length
+     * @param name
+     * @return
+     */
     public String containOnlyDigit(JTextField str, int length, String name){
         String errorList = "";
         if(str.getText().length() !=  length){                
@@ -1014,28 +1017,24 @@ public class NewJPanel extends javax.swing.JPanel {
             return errorList;
     }
     
-   
+    /**
+     *
+     */
     public void createGUI(){
         F.setMinimumSize(new Dimension(500,500));
         F.setPreferredSize(new Dimension(500,500));
         F.add(MainPanel);
         
         F.setVisible(true);
-        //String getName = Login_Field.getText();
     }
 
-   
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-
-        
         N.setPreferredSize(new Dimension(500,500));
-        N.createGUI();
-       
-
-        
-        
-        
-       
+        N.createGUI();  
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Address;
@@ -1071,18 +1070,18 @@ public class NewJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> Sex_box;
     private javax.swing.JTextPane accountInfo;
     private static javax.swing.JTextField balanceField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton changePasswordButton;
+    private javax.swing.JButton deleteAccountButton;
+    private javax.swing.JButton depositCashButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JLabel loginError;
+    private javax.swing.JButton registerNewAccount;
     private javax.swing.JPanel testPanel;
+    private javax.swing.JButton withdrawCashButton;
     // End of variables declaration//GEN-END:variables
 }
