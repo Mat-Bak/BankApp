@@ -25,7 +25,7 @@ public class changePassword extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         invalidData = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -40,13 +40,10 @@ public class changePassword extends javax.swing.JFrame {
         });
 
         newPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        newPassword.setText("jPasswordField1");
 
         reNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        reNewPassword.setText("jPasswordField1");
 
         oldPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        oldPassword.setText("jPasswordField1");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Old Password");

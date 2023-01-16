@@ -35,7 +35,7 @@ public class MainApp extends javax.swing.JPanel {
 
     String name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode;
     int balance;
-    JFrame F = new JFrame("Panel");
+    JFrame F = new JFrame("BankApp");
     static String getPesel = "";
     //Red border if field is wrong and gray if it is correct
     static Border empty = BorderFactory.createLineBorder(Color.RED, 1);
@@ -403,6 +403,7 @@ public class MainApp extends javax.swing.JPanel {
             }
         });
 
+        accountInfo.setEditable(false);
         accountInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(accountInfo);
 
@@ -764,6 +765,22 @@ public class MainApp extends javax.swing.JPanel {
     
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
+        List<Account> data = loadData();
+        BufferedWriter bf = null;
+        File file = new File(outputFilePath);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            for(Account users : data){
+                if(users.getPesel().equals(getPesel)){
+                    users.setBalance(Integer.parseInt(balanceField.getText()));
+                    bf = new BufferedWriter(new FileWriter(file));
+                    gson.toJson(data, bf);
+                    break;
+                }
+            }
+            bf.flush();
+        } catch (Exception e) {
+        }
         testPanel.setVisible(false);
         MainPanel.setVisible(true);
         Login_Field.setText("");

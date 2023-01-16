@@ -1,3 +1,6 @@
+
+import javax.swing.JFrame;
+
 /**
  *
  * @author Mateusz
@@ -8,6 +11,7 @@ public class WithdrawMoney extends javax.swing.JFrame {
      *
      */
     public WithdrawMoney() {
+        //this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initComponents();
     }
 
@@ -20,7 +24,7 @@ public class WithdrawMoney extends javax.swing.JFrame {
         cashField = new javax.swing.JTextField();
         withdrawError = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -73,6 +77,8 @@ public class WithdrawMoney extends javax.swing.JFrame {
 
     private void withdrawMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawMoneyActionPerformed
         // TODO add your handling code here:
+        
+        //JFrame.DISPOSE_ON_CLOSE;
         boolean tryWithdraw = MainApp.withdrawCash(cashField.getText());
         if(tryWithdraw){
             dispose();

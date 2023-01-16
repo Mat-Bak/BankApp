@@ -25,7 +25,7 @@ public class DeleteAccount extends javax.swing.JFrame {
         passwordField = new javax.swing.JPasswordField();
         errorLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -90,7 +90,7 @@ public class DeleteAccount extends javax.swing.JFrame {
             int response = JOptionPane.showConfirmDialog(this, "Do you want delete your account?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(response == JOptionPane.YES_OPTION){
                 MainApp.removeAccount();
-                dispose();
+                System.exit(0);
             }
         }
         
