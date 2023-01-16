@@ -1,16 +1,30 @@
 [
   {
-    "name": "asfasdfasdfas",
-    "surname": "dfasdfasdfasf",
-    "city": "asfasfsafsaf",
-    "address": "safsafasfasdf",
-    "login": "sdafsafasf",
+    "name": "Bob",
+    "surname": "Carly",
+    "city": "Poznan",
+    "address": "SilverStreet",
+    "login": "secretLogin",
     "password": "!1234Qwer",
-    "sex": "asfasfsa@wp.pl",
-    "email": "Male",
-    "phoneNumber": "123123123",
-    "pesel": "12312312312",
-    "postCode": "12312",
+    "sex": "email@gmail.com",
+    "email": "Female",
+    "phoneNumber": "458745879",
+    "pesel": "13212312312",
+    "postCode": "58585",
     "balance": 0
+  },
+  {
+    "name": "Adam",
+    "surname": "Colby",
+    "city": "Warsav",
+    "address": "randomAddress",
+    "login": "itIsLogin",
+    "password": "Secret!1234",
+    "sex": "Male",
+    "email": "randomEmail@gmail.com",
+    "phoneNumber": "123456789",
+    "pesel": "12345678900",
+    "postCode": "12345",
+    "balance": 5000
   }
 ]

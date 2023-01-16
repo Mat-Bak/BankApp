@@ -111,19 +111,19 @@ public class MainApp extends javax.swing.JPanel {
         accountInfo = new javax.swing.JTextPane();
         deleteAccountButton = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setMinimumSize(new java.awt.Dimension(500, 600));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(500, 500));
+        setPreferredSize(new java.awt.Dimension(500, 600));
 
         MainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         MainPanel.setInheritsPopupMenu(true);
-        MainPanel.setMinimumSize(new java.awt.Dimension(500, 500));
+        MainPanel.setMinimumSize(new java.awt.Dimension(500, 600));
         MainPanel.setName(""); // NOI18N
-        MainPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+        MainPanel.setPreferredSize(new java.awt.Dimension(500, 600));
 
         LogiIn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        LogiIn.setMinimumSize(new java.awt.Dimension(500, 500));
-        LogiIn.setPreferredSize(new java.awt.Dimension(500, 500));
+        LogiIn.setMinimumSize(new java.awt.Dimension(500, 600));
+        LogiIn.setPreferredSize(new java.awt.Dimension(500, 600));
 
         Login_Label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Login_Label.setText("Login");
@@ -149,7 +149,7 @@ public class MainApp extends javax.swing.JPanel {
         LogiInLayout.setHorizontalGroup(
             LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogiInLayout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap(116, Short.MAX_VALUE)
                 .addGroup(LogiInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Login_Label)
@@ -174,7 +174,7 @@ public class MainApp extends javax.swing.JPanel {
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(loginError, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("Log In", null, LogiIn, "");
@@ -280,7 +280,7 @@ public class MainApp extends javax.swing.JPanel {
                         .addComponent(Login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Password_Name)
                         .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(RegisterLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
@@ -365,6 +365,8 @@ public class MainApp extends javax.swing.JPanel {
 
         MainPanel.addTab("Register", null, Register, "");
 
+        testPanel.setMinimumSize(new java.awt.Dimension(500, 600));
+
         depositCashButton.setText("Deposit Cash");
         depositCashButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,7 +450,7 @@ public class MainApp extends javax.swing.JPanel {
                     .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -552,34 +554,29 @@ public class MainApp extends javax.swing.JPanel {
             loadDataFromFile = loadData();
             
             //check if login, phone number or email already exist in file 
-            for(Account userData : loadDataFromFile){
-                if((userData.getLogin().equals(login))){
-                    Login_Field.setBorder(empty);
-                    errorList += """
-                                  Login Already Exist!
-                                 """;
-                } 
-                if(userData.getEmail().equals(email)){
-                    errorList += """
-                                 Email Already Exist!
-                                 """;
-                    Email_label.setBorder(empty); 
+            if(!loadDataFromFile.equals(null)){
+                for(Account userData : loadDataFromFile){
+                    if((userData.getLogin().equals(login))){
+                        Login_Field.setBorder(empty);
+                        errorList += """
+                                      Login Already Exist!
+                                     """;
+                    } 
+                    if(userData.getEmail().equals(email)){
+                        errorList += """
+                                     Email Already Exist!
+                                     """;
+                        Email_label.setBorder(empty); 
+                    }
+                    if(userData.getPhoneNumber().equals(phoneNumber)){
+                        errorList += """
+                                     Phone Number Already Exist!
+                                     """;
+                        Phone_Number.setBorder(empty);
+                    } 
                 }
-                if(userData.getPhoneNumber().equals(phoneNumber)){
-                    errorList += """
-                                 Phone Number Already Exist!
-                                 """;
-                    Phone_Number.setBorder(empty);
-                } 
             }
-            
-            loadDataFromFile.add(new Account(name, surname, city, address, login, password, email, sex, phoneNumber, pesel, postCode, balance));
-            bf = new BufferedWriter(new FileWriter(file));
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            gson.toJson(loadDataFromFile, bf);
-            
-            
             // if any field has a red border, it means that it is invalid and the data cannot be written to the file
             for(JTextField data : accountData){
                 if(data.getBorder() == empty){
@@ -588,6 +585,12 @@ public class MainApp extends javax.swing.JPanel {
                 }
                 
             }
+            
+            loadDataFromFile.add(new Account(name, surname, city, address, login, password, sex, email, phoneNumber, pesel, postCode, balance));
+            bf = new BufferedWriter(new FileWriter(file));
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            gson.toJson(loadDataFromFile, bf);
             
             // If everything is ok, save the data to a file and show a successful message
             ErrorPanel.setForeground(new Color(17,74,0));
@@ -1021,7 +1024,7 @@ public class MainApp extends javax.swing.JPanel {
      *
      */
     public void createGUI(){
-        F.setMinimumSize(new Dimension(500,500));
+        F.setMinimumSize(new Dimension(500,550));
         F.setPreferredSize(new Dimension(500,500));
         F.add(MainPanel);
         
@@ -1033,7 +1036,7 @@ public class MainApp extends javax.swing.JPanel {
      * @param args
      */
     public static void main(String[] args) {
-        N.setPreferredSize(new Dimension(500,500));
+        N.setPreferredSize(new Dimension(500,550));
         N.createGUI();  
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
