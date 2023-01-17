@@ -25,7 +25,7 @@
 	<li> Password and rePassword must be the same </li>
 	<li>  Password must contain:
 		<ul>
-			<li> At least one uppercase and one lowercase letter <li>
+			<li> At least one uppercase and one lowercase letter </li>
 			<li> At least one number </li>
 			<li> At least one special character </li>
 			<li> Must be longer than 7 </li>
@@ -66,7 +66,7 @@
 <h3> The last button "Delete Account" allows you to delete an existing account. After clicking, a window will appear in which the user must fill in the PESEL and password fields. When all the data is correct, after clicking the "Delete" button, another panel will appear with the question "Are you sure you want to delete the account?". If you select "yes", the account will be deleted and the application will be closed. </h3>
 
 <p align="center">
- <img width="100%" height="auto" src="Img/deleteAcc.png">
+ <img width="50%" height="auto" src="Img/deleteAcc.png">
 </p>
 
 <h3> All data is stored in the "accounts.json" file, which is saved and loaded thanks to the Gson library, which allows you to easily process data from java into a Json file. </h3>
