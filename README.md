@@ -1,7 +1,10 @@
 # BankApp
 <i> Product Version: Apache NetBeans IDE 16 </i>
+</br>
 <i> Java Version: 19.0.1 </i>
+</br>
 <i> Runtime: Java(TM) SE Runtime Environment 19.0.1+10.21 </i>
+</br>
 <i> Maven Version: 3.8.6 </i>
 
 
