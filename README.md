@@ -36,7 +36,7 @@
 <h3> When all the data in the fields are correct, the account will be created. </h3>
 
 <p align="center">
- <img width="100%" height="auto" src="Img/login.png">
+ <img width="80%" height="auto" src="Img/login.png">
 </p>
 
 <h3> After creating an account in the login panel, you can log in to the previously created account using your login and password. </h3>
@@ -44,13 +44,13 @@
 <h3> If there is an account with the entered login and password, a new window with account details will appear. The account panel shows your account balance, account information, and five buttons.</h3>
 
 <p align="center">
- <img width="50%" height="auto" src="Img/account.png">
+ <img width="40%" height="auto" src="Img/account.png">
 </p>
 
 <h3> The first two buttons "Deposit money" and "Withdraw money" allow you to deposit and withdraw money from your account. When you click on one of these buttons, a special window will appear telling you how much money you want to deposit or withdraw. In the case of a withdrawal, it must be equal to or less than the account balance, otherwise the money will not be withdrawn and the message "Not enough money to withdraw" will appear below the value in the field.</h3>
 
 <p align="center">
- <img width="100%" height="auto" src="Img/deposit.png">
+ <img width="80%" height="auto" src="Img/deposit.png">
 </p>
 
 <h3> The next button is "Change Password". After clicking, a window with three fields will appear: "old password", "new password" and "reply to new password". </h3>
@@ -58,7 +58,7 @@
 <h3> If all fields are correct, the password will be changed and you will have to use the new password the next time you log in. </h3>
 
 <p align="center">
- <img width="50%" height="auto" src="Img/changePassword.png">
+ <img width="40%" height="auto" src="Img/changePassword.png">
 </p>
 
 <h3> The next button is "Logout", which allows you to log out of your account and return to the start panel. </h3>
@@ -66,7 +66,7 @@
 <h3> The last button "Delete Account" allows you to delete an existing account. After clicking, a window will appear in which the user must fill in the PESEL and password fields. When all the data is correct, after clicking the "Delete" button, another panel will appear with the question "Are you sure you want to delete the account?". If you select "yes", the account will be deleted and the application will be closed. </h3>
 
 <p align="center">
- <img width="50%" height="auto" src="Img/deleteAcc.png">
+ <img width="40%" height="auto" src="Img/deleteAcc.png">
 </p>
 
 <h3> All data is stored in the "accounts.json" file, which is saved and loaded thanks to the Gson library, which allows you to easily process data from java into a Json file. </h3>
