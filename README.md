@@ -1,10 +1,9 @@
 # BankApp
-<i> 
-Product Version: Apache NetBeans IDE 16
-Java Version: 19.0.1
-Runtime: Java(TM) SE Runtime Environment 19.0.1+10.21
-Maven Version: 3.8.6
-</i>
+<i> Product Version: Apache NetBeans IDE 16 </i>
+<i> Java Version: 19.0.1 </i>
+<i> Runtime: Java(TM) SE Runtime Environment 19.0.1+10.21 </i>
+<i> Maven Version: 3.8.6 </i>
+
 
 <title> An application that simulates a bank account, allowing you to set up a new account and manage it after logging in to the account panel. </title>
 
