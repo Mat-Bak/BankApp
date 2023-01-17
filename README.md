@@ -8,7 +8,7 @@
 <i> Maven Version: 3.8.6 </i>
 
 
-<title> An application that simulates a bank account, allowing you to set up a new account and manage it after logging in to the account panel. </title>
+<h1> An application that simulates a bank account, allowing you to set up a new account and manage it after logging in to the account panel. </h1>
 
 <br>
 
